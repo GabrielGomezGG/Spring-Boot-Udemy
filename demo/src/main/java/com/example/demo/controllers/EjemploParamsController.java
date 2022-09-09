@@ -16,8 +16,14 @@ public class EjemploParamsController {
     }
 
     @GetMapping("/string")
-    public String param(@RequestParam(name = "texto", defaultValue = "no existe algo")String texto ,Model model){
+    public String param(@RequestParam(defaultValue = "no existe algo")String texto ,Model model){
         model.addAttribute("resultado", "El texto del parametro es: ".concat(texto));
+        return "params/ver";
+    }
+
+    @GetMapping("/mix")
+    public String mix(@RequestParam String texto ,@RequestParam Integer numero, Model model){
+        model.addAttribute("resultado", "El texto del parametro es: ".concat(texto) + " numero: " + numero);
         return "params/ver";
     }
 }

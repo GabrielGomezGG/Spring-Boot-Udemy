@@ -1,13 +1,13 @@
 package com.example.demo.models;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class Usuario {
-
-    @Getter @Setter
     private String nombre;
-
-    @Getter @Setter
     private String apellido;
+    private String email;
 }

@@ -1,6 +1,8 @@
 package com.example.demo.controllers;
 
 import com.example.demo.models.Usuario;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,9 +14,18 @@ import java.util.List;
 @Controller
 public class IndexController {
 
+    @Value("${texto.indexcontroller.index.titulo}")
+    private String textoIndex;
+
+    @Value("${texto.indexcontroller.perfil.titulo}")
+    private String textoPerfil;
+
+    @Value("${texto.indexcontroller.listado.titulo}")
+    private String textoListado;
+
     @GetMapping("/index")
     public String index(Model model){
-        model.addAttribute("titulo","Bienvenido");
+        model.addAttribute("titulo",textoIndex);
         return "index";
     }
 
@@ -25,7 +36,7 @@ public class IndexController {
         usuario.setNombre("Aron");
         usuario.setEmail("@gasf.com");
         model.addAttribute("usuario", usuario);
-        model.addAttribute("titulo","Bienvenido: ".concat(usuario.getNombre()));
+        model.addAttribute("titulo",textoPerfil.concat(usuario.getNombre()));
         return "perfil";
     }
 
@@ -52,7 +63,7 @@ public class IndexController {
         usuarios.add(usuario);
 
         model.addAttribute("usuarios", usuarios);*/
-        model.addAttribute("titulo","Listado de usuarios");
+        model.addAttribute("titulo",textoListado);
         return "listado";
     }
 

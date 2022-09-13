@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.List;
 
 @Getter
@@ -19,6 +21,17 @@ public class Factura {
 
     @Autowired
     private Cliente cliente;
+
+    @PostConstruct
+    public void cambiarDatos(){
+        cliente.setNombre("Gogo");
+        descripcion = descripcion + "LOLOLOLO";
+    }
+
+    @PreDestroy
+    public void destruir(){
+        System.out.println("DESTROID " + descripcion);
+    }
 
     @Autowired
     @Qualifier("ItemFacturaOficina")

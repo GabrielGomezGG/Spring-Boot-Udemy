@@ -3,7 +3,7 @@ package com.example.demo_di.models.services;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service("MiServicioComplejo")
 @Primary
 public class MiServicioComplejo implements IService {
     @Override

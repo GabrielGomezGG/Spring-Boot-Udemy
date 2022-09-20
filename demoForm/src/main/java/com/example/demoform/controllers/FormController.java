@@ -28,11 +28,11 @@ public class FormController {
 
         model.addAttribute("titulo", "Resultado usuario");
         if(result.hasErrors()){
-            Map<String, String> errores = new HashMap<>();
-            result.getFieldErrors().forEach(err ->{
-                errores.put(err.getField(), "El campo"+err.getField()+" "+err.getDefaultMessage());
-            });
-            model.addAttribute("error", errores);
+//            Map<String, String> errores = new HashMap<>();
+//            result.getFieldErrors().forEach(err ->{
+//                errores.put(err.getField(), "El campo"+err.getField()+" "+err.getDefaultMessage());
+//            });
+//            model.addAttribute("error", errores);
 
             return "form";
 

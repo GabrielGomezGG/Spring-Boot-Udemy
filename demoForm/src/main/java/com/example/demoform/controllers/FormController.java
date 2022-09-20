@@ -5,26 +5,27 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.Map;
 
 @Controller
+@SessionAttributes("usuario")
 public class FormController {
 
     @GetMapping("/form")
     public String form(Model model){
         model.addAttribute("titulo", "Formulario usuario");
         Usuario usuario = new Usuario();
+        usuario.setId("ASDASD");
         model.addAttribute("usuario", usuario);
         return "form";
     }
 
     @PostMapping("/form")
-    public String procesar(@Valid Usuario usuario, BindingResult result, Model model){
+    public String procesar(@Valid Usuario usuario, BindingResult result, Model model, SessionStatus status){
 
         model.addAttribute("titulo", "Resultado usuario");
         if(result.hasErrors()){
@@ -38,6 +39,7 @@ public class FormController {
 
         }
         model.addAttribute("usuario", usuario);
+        status.setComplete();
         return "resultado";
     }
 }

@@ -13,6 +13,14 @@ import javax.validation.constraints.NotEmpty;
 @NoArgsConstructor
 public class Usuario {
 
+    private String id;
+
+    @NotEmpty
+    private String nombre;
+
+    @NotEmpty
+    private String apellido;
+
     @NotEmpty
     private String username;
     @NotEmpty

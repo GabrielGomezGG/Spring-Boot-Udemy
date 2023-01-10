@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Getter
@@ -18,6 +19,7 @@ public class Usuario {
     private String id;
 
     @NotEmpty
+    @Pattern(regexp = "[A-Z]{1}[a-z]{15}")
     private String nombre;
 
     @NotEmpty

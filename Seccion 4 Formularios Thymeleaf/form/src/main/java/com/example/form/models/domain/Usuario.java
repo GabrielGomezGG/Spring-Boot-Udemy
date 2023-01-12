@@ -11,10 +11,10 @@ import lombok.Setter;
 @Setter
 public class Usuario {
 
-    @Pattern(regexp = "[0-9]{2}[.][0-9]{3}[.][0-9]{3}[-][A-Z]")
+    //@Pattern(regexp = "[0-9]{2}[.][0-9]{3}[.][0-9]{3}[-][A-Z]")
     private String id;
 
-    @NotEmpty(message = "nombre incorrecto")
+    //@NotEmpty(message = "nombre incorrecto")
     private String nombre;
 
     @NotEmpty

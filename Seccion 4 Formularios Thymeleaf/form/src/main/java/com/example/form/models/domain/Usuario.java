@@ -1,6 +1,8 @@
 package com.example.form.models.domain;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +12,7 @@ public class Usuario {
 
     private String id;
 
-    @NotEmpty
+    @NotEmpty(message = "nombre incorrecto")
     private String nombre;
 
     @NotEmpty
@@ -20,8 +22,10 @@ public class Usuario {
     private String username;
 
     @NotEmpty
+    @Size(min = 3, max = 8)
     private String password;
 
     @NotEmpty
+    @Email
     private String email;
 }

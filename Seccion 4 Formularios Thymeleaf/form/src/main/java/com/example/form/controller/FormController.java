@@ -31,6 +31,7 @@ public class FormController {
         model.addAttribute("titulo", "Resultado formulario");
 
         if(result.hasErrors()){
+            /*
             Map<String, String> errores = new HashMap<>();
 
             result.getFieldErrors().forEach(err -> {
@@ -40,6 +41,7 @@ public class FormController {
                 );
             });
             model.addAttribute("error", errores);
+            */
             return "form";
         }
 

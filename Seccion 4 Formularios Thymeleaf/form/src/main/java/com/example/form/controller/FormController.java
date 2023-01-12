@@ -1,5 +1,6 @@
 package com.example.form.controller;
 
+import com.example.form.models.domain.Usuario;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,10 +21,14 @@ public class FormController {
             String username,
             String password,
             String email) {
+
+        Usuario usuario = new Usuario();
+        usuario.setUsername(username);
+        usuario.setPassword(password);
+        usuario.setEmail(email);
+
         model.addAttribute("titulo", "Resultado formulario");
-        model.addAttribute("username", username);
-        model.addAttribute("password", password);
-        model.addAttribute("email", email);
+        model.addAttribute("usuario", usuario);
         return "respuesta";
     }
 

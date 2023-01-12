@@ -22,7 +22,7 @@ public class Usuario {
     private String username;
 
     @NotEmpty
-    @Size(min = 3, max = 8)
+    @Size(min = 3, max = 7)
     private String password;
 
     @NotEmpty

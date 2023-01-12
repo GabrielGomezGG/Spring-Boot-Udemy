@@ -17,6 +17,9 @@ public class FormController {
     @GetMapping("/form")
     public String form(Model model){
         Usuario usuario = new Usuario();
+        usuario.setNombre("Titi");
+        usuario.setApellido("Pepep");
+        usuario.setId("123.321.321-A");
         model.addAttribute("usuario", usuario);
         model.addAttribute("titulo", "Formulario");
         return "form";

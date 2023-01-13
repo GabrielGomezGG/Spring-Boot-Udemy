@@ -5,6 +5,9 @@ import com.example.form.validation.Requerido;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 @Getter
 @Setter
@@ -35,4 +38,8 @@ public class Usuario {
     @Min(5)
     @Max(5000)
     private Integer cuenta;
+
+    @NotNull
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date fechaNacimiento;
 }

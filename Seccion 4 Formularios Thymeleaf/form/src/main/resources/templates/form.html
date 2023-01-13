@@ -40,6 +40,14 @@
         </div>
     </div>
     <div>
+        <label for="fechaNacimiento">Fecha de Nacimiento</label>
+        <div>
+            <input type="text" id="fechaNacimiento" th:field="*{fechaNacimiento}">
+        </div>
+        <div th:if="${#fields.hasErrors('fechaNacimiento')}" th:errors="*{fechaNacimiento}">
+        </div>
+    </div>
+    <div>
         <label for="username">Username</label>
         <div>
             <input type="text" id="username" th:field="*{username}">

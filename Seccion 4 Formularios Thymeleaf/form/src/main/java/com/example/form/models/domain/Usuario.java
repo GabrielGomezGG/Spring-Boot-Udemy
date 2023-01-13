@@ -30,4 +30,9 @@ public class Usuario {
     @NotEmpty
     @Email
     private String email;
+
+    @NotNull
+    @Min(5)
+    @Max(5000)
+    private Integer cuenta;
 }

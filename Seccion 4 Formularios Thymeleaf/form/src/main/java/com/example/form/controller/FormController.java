@@ -1,5 +1,6 @@
 package com.example.form.controller;
 
+import com.example.form.editors.NombreMayusculaEditor;
 import com.example.form.models.domain.Usuario;
 import com.example.form.validation.UsuarioValidador;
 import jakarta.validation.Valid;
@@ -35,6 +36,8 @@ public class FormController {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat,false));
+
+        binder.registerCustomEditor(String.class, "nombre",new NombreMayusculaEditor());
     }
 
     @GetMapping("/form")
@@ -42,7 +45,7 @@ public class FormController {
         Usuario usuario = new Usuario();
         usuario.setNombre("Titi");
         usuario.setApellido("Pepep");
-        usuario.setId("123.321.321-A");
+        usuario.setId("23.321.321-A");
         model.addAttribute("usuario", usuario);
         model.addAttribute("titulo", "Formulario");
         return "form";

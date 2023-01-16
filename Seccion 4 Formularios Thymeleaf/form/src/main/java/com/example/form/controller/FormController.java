@@ -61,6 +61,11 @@ public class FormController {
         usuario.setNombre("Titi");
         usuario.setApellido("Pepep");
         usuario.setId("23.321.321-A");
+        usuario.setHabilitar(true);
+        usuario.setCuenta(5);
+        usuario.setEmail("a@g.com");
+        usuario.setPassword("asddsa");
+        usuario.setUsername("tiutu");
         model.addAttribute("usuario", usuario);
         model.addAttribute("titulo", "Formulario");
         return "form";

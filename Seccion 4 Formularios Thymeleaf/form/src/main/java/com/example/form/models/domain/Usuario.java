@@ -51,4 +51,6 @@ public class Usuario {
 
     @NotEmpty
     private List<Role> roles;
+
+    private Boolean habilitar;
 }

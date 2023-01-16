@@ -3,6 +3,7 @@ package com.example.form.controller;
 import com.example.form.editors.NombreMayusculaEditor;
 import com.example.form.models.domain.Pais;
 import com.example.form.models.domain.Usuario;
+import com.example.form.services.PaisService;
 import com.example.form.validation.UsuarioValidador;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class FormController {
 
     @Autowired
     private UsuarioValidador validador;
+
+    @Autowired
+    private PaisService paisService;
 
     @InitBinder
     public void initBinder(WebDataBinder binder){
@@ -84,13 +88,7 @@ public class FormController {
 
     @ModelAttribute("listaPaises")
     public List<Pais> listaPaises(){
-        return Arrays.asList(
-                new Pais(1, "AR", "Argentina"),
-                new Pais(2,"CH","Chile"),
-                new Pais(3, "MX","Mexico"),
-                new Pais(4, "VN","Venezuela"),
-                new Pais(5, "PY","Paraguay")
-        );
+        return paisService.listar();
     }
 
     @ModelAttribute("paisesMap")

@@ -49,6 +49,6 @@ public class Usuario {
     @NotNull
     private Pais pais;
 
-    @NotNull
+    @NotEmpty
     private List<Role> roles;
 }

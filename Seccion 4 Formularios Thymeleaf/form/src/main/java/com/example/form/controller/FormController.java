@@ -2,6 +2,7 @@ package com.example.form.controller;
 
 import com.example.form.editors.NombreMayusculaEditor;
 import com.example.form.editors.PaisPropertiesEditor;
+import com.example.form.editors.RolesEditor;
 import com.example.form.models.domain.Pais;
 import com.example.form.models.domain.Role;
 import com.example.form.models.domain.Usuario;
@@ -35,6 +36,9 @@ public class FormController {
     private PaisPropertiesEditor paisPropertiesEditor;
 
     @Autowired
+    private RolesEditor rolesEditor;
+
+    @Autowired
     private RoleService roleService;
 
     @InitBinder
@@ -48,6 +52,7 @@ public class FormController {
 
         binder.registerCustomEditor(String.class, "nombre",new NombreMayusculaEditor());
         binder.registerCustomEditor(Pais.class, "pais", paisPropertiesEditor);
+        binder.registerCustomEditor(Role.class, "roles", rolesEditor);
     }
 
     @GetMapping("/form")

@@ -105,4 +105,9 @@ public class FormController {
 
         return paises;
     }
+
+    @ModelAttribute("listaRolesString")
+    public List<String> listaRolesString(){
+        return Arrays.asList("ROLE_ADMIN", "ROLE_USER", "ROLE_MODERATOR");
+    }
 }

@@ -9,6 +9,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -47,4 +48,7 @@ public class Usuario {
 
     @NotNull
     private Pais pais;
+
+    @NotEmpty
+    private List<String> roles;
 }

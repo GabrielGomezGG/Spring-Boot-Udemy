@@ -80,4 +80,14 @@ public class FormController {
     public List<String> paises(){
         return Arrays.asList("Argentina", "Chile", "Maxico");
     }
+
+    @ModelAttribute("paisesMap")
+    public Map<String,String> paisesMap(){
+        Map<String,String> paises = new HashMap<String,String>();
+        paises.put("AR", "Argentina");
+        paises.put("CH", "Chile");
+        paises.put("MX", "Maxico");
+
+        return paises;
+    }
 }

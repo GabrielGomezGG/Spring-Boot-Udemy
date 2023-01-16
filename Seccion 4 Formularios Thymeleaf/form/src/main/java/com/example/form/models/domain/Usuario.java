@@ -53,4 +53,7 @@ public class Usuario {
     private List<Role> roles;
 
     private Boolean habilitar;
+
+    @NotEmpty
+    private String genero;
 }

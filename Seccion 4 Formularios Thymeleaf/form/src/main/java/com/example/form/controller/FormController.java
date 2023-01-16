@@ -3,8 +3,10 @@ package com.example.form.controller;
 import com.example.form.editors.NombreMayusculaEditor;
 import com.example.form.editors.PaisPropertiesEditor;
 import com.example.form.models.domain.Pais;
+import com.example.form.models.domain.Role;
 import com.example.form.models.domain.Usuario;
 import com.example.form.services.PaisService;
+import com.example.form.services.RoleService;
 import com.example.form.validation.UsuarioValidador;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,9 @@ public class FormController {
 
     @Autowired
     private PaisPropertiesEditor paisPropertiesEditor;
+
+    @Autowired
+    private RoleService roleService;
 
     @InitBinder
     public void initBinder(WebDataBinder binder){
@@ -119,5 +124,10 @@ public class FormController {
     @ModelAttribute("listaRolesString")
     public List<String> listaRolesString(){
         return Arrays.asList("ROLE_ADMIN", "ROLE_USER", "ROLE_MODERATOR");
+    }
+
+    @ModelAttribute("listaRoles")
+    public List<Role> listaRoles(){
+        return roleService.getRoles();
     }
 }

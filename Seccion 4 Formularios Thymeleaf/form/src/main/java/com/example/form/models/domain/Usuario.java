@@ -58,4 +58,9 @@ public class Usuario {
     private String genero;
 
     private String valorSecreto;
+
+    @Override
+    public String toString() {
+        return this.id.toString();
+    }
 }

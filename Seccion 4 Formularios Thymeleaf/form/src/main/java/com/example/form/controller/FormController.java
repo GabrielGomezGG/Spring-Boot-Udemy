@@ -76,28 +76,27 @@ public class FormController {
     public String procesar(
             @Valid Usuario usuario,
             BindingResult result,
-            Model model,
-            SessionStatus status
+            Model model
     ) {
-        //validador.validate(usuario,result);
-        model.addAttribute("titulo", "Resultado formulario");
 
         if(result.hasErrors()){
-            /*
-            Map<String, String> errores = new HashMap<>();
-
-            result.getFieldErrors().forEach(err -> {
-                errores.put(
-                        err.getField(),
-                        "El campo ".concat(err.getField()).concat(" ").concat(err.getDefaultMessage())
-                );
-            });
-            model.addAttribute("error", errores);
-            */
+            model.addAttribute("titulo", "Resultado formulario");
             return "form";
         }
 
-        model.addAttribute("usuario", usuario);
+        return "redirect:/ver";
+    }
+
+    @GetMapping("/ver")
+    public String ver(
+            @SessionAttribute(name="usuario", required = false) Usuario usuario,
+            Model model,
+            SessionStatus status
+    ){
+        if(usuario == null){
+            return "redirect:/form";
+        }
+        model.addAttribute("titulo", "Resultado formulario");
         status.setComplete();
         return "respuesta";
     }

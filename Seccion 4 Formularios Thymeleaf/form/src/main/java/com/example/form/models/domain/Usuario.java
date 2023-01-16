@@ -2,6 +2,7 @@ package com.example.form.models.domain;
 
 import com.example.form.validation.IdentificadorRegex;
 import com.example.form.validation.Requerido;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -44,6 +45,6 @@ public class Usuario {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaNacimiento;
 
-    @NotEmpty
-    private String pais;
+    @Valid
+    private Pais pais;
 }

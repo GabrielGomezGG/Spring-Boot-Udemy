@@ -1,6 +1,7 @@
 package com.example.form.controller;
 
 import com.example.form.editors.NombreMayusculaEditor;
+import com.example.form.models.domain.Pais;
 import com.example.form.models.domain.Usuario;
 import com.example.form.validation.UsuarioValidador;
 import jakarta.validation.Valid;
@@ -79,6 +80,17 @@ public class FormController {
     @ModelAttribute("paises")
     public List<String> paises(){
         return Arrays.asList("Argentina", "Chile", "Maxico");
+    }
+
+    @ModelAttribute("listaPaises")
+    public List<Pais> listaPaises(){
+        return Arrays.asList(
+                new Pais(1, "AR", "Argentina"),
+                new Pais(2,"CH","Chile"),
+                new Pais(3, "MX","Mexico"),
+                new Pais(4, "VN","Venezuela"),
+                new Pais(5, "PY","Paraguay")
+        );
     }
 
     @ModelAttribute("paisesMap")

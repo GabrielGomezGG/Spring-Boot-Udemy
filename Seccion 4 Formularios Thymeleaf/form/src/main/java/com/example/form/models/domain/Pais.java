@@ -11,7 +11,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Pais {
-    @NotNull
     private Integer id;
     private String codigo;
     private String nombre;

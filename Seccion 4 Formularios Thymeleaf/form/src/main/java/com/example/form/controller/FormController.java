@@ -1,6 +1,7 @@
 package com.example.form.controller;
 
 import com.example.form.editors.NombreMayusculaEditor;
+import com.example.form.editors.PaisPropertiesEditor;
 import com.example.form.models.domain.Pais;
 import com.example.form.models.domain.Usuario;
 import com.example.form.services.PaisService;
@@ -28,6 +29,9 @@ public class FormController {
     @Autowired
     private PaisService paisService;
 
+    @Autowired
+    private PaisPropertiesEditor paisPropertiesEditor;
+
     @InitBinder
     public void initBinder(WebDataBinder binder){
 
@@ -38,6 +42,7 @@ public class FormController {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat,false));
 
         binder.registerCustomEditor(String.class, "nombre",new NombreMayusculaEditor());
+        binder.registerCustomEditor(Pais.class, "pais", paisPropertiesEditor);
     }
 
     @GetMapping("/form")

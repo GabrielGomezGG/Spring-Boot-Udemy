@@ -66,6 +66,7 @@ public class FormController {
         usuario.setEmail("a@g.com");
         usuario.setPassword("asddsa");
         usuario.setUsername("tiutu");
+        usuario.setValorSecreto("aaaaaaaaaaaaaaaaa");
         model.addAttribute("usuario", usuario);
         model.addAttribute("titulo", "Formulario");
         return "form";

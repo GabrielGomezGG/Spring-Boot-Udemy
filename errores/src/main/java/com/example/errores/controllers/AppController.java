@@ -1,5 +1,6 @@
 package com.example.errores.controllers;
 
+import com.example.errores.errors.UsuarioNoEncontradoException;
 import com.example.errores.models.domain.Usuario;
 import com.example.errores.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,11 @@ public class AppController {
     public String ver(@PathVariable Integer id, Model model){
 
         Usuario usuario = usuarioService.getUsuarioForId(id);
+
+        if(usuario == null){
+            throw new UsuarioNoEncontradoException(id.toString());
+        }
+
         model.addAttribute("usuario", usuario);
         model.addAttribute("titulo", "Detalle del usuario: ".concat(usuario.getNombre()));
         return "ver";

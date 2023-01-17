@@ -9,6 +9,7 @@ public class AppController {
 
     @GetMapping("/index")
     public String index(Model model){
+        Integer algo = 100/0;
         return "index";
     }
 }

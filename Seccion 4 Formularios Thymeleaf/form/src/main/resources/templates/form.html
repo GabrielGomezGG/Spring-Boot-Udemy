@@ -7,9 +7,7 @@
 </head>
 <body>
 
-<div class="alert alert-success" role="alert">
-    <span th:text="'Tiempo Trascurrido:'+ ${tiempoTrascurrido}"></span>
-</div>
+<section th:replace="componentes/tiempo :: interceptor"></section>
 
 <div class="container">
 <form th:action="@{/form}" th:object="${usuario}" method="post" class="row g-3 needs-validation" novalidate>

@@ -5,6 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.text.ParseException;
+
 @ControllerAdvice
 public class ErrorHandlerController {
 
@@ -14,6 +16,14 @@ public class ErrorHandlerController {
         model.addAttribute("message", ex.getMessage());
         model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
         return "error/aritmetica";
+    }
+
+    @ExceptionHandler(NumberFormatException.class)
+    public String parseIntError(Exception ex, Model model){
+        model.addAttribute("error", "Error al tratar de parsear un string a un integer");
+        model.addAttribute("message", ex.getMessage());
+        model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+        return "error/errorgenerico";
     }
 
 }

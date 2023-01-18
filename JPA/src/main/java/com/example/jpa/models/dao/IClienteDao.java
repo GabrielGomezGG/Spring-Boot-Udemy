@@ -1,16 +1,8 @@
 package com.example.jpa.models.dao;
 
 import com.example.jpa.models.entity.Cliente;
+import org.springframework.data.repository.CrudRepository;
 
-import java.util.List;
+public interface IClienteDao extends CrudRepository<Cliente,Long> {
 
-public interface IClienteDao {
-
-    List<Cliente> findAll();
-
-    void save(Cliente cliente);
-
-    Cliente findOne(Long id);
-
-    void delete(Long id);
 }

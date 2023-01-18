@@ -25,4 +25,9 @@ public class Cliente implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date creadoEn;
 
+    @PrePersist
+    public void PrePersist(){
+        creadoEn = new Date();
+    }
+
 }

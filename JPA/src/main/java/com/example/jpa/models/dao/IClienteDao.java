@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface IClienteDao {
 
-    public List<Cliente> getAll();
+    public List<Cliente> findAll();
 }

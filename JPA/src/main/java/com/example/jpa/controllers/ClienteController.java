@@ -17,8 +17,8 @@ public class ClienteController {
 
     @GetMapping("/listado")
     public String getClientes(Model model){
-        model.addAttribute("listado", "Listado de clientes");
         model.addAttribute("clientes", clienteDao.findAll());
+        model.addAttribute("titulo", "JPA");
         return "listado";
     }
 

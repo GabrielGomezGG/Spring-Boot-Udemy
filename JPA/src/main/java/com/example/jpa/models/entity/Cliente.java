@@ -3,6 +3,7 @@ package com.example.jpa.models.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -23,11 +24,12 @@ public class Cliente implements Serializable {
 
     @Column(name = "creado_en")
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy/MM/dd")
     private Date creadoEn;
 
-    @PrePersist
-    public void PrePersist(){
-        creadoEn = new Date();
-    }
+//    @PrePersist
+//    public void PrePersist(){
+//        creadoEn = new Date();
+//    }
 
 }

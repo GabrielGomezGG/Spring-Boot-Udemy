@@ -19,18 +19,22 @@
             <tr>
                 <td>Nombre</td>
                 <td><input type="text" th:field="*{nombre}" class="form-control"/></td>
+                <td class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></td>
             </tr>
             <tr>
                 <td>Apellido</td>
                 <td><input type="text" th:field="*{apellido}" class="form-control"/></td>
+                <td class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></td>
             </tr>
             <tr>
                 <td>Email</td>
                 <td><input type="email" th:field="*{email}" class="form-control"/></td>
+                <td class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></td>
             </tr>
             <tr>
                 <td>Creado en</td>
                 <td><input type="text" th:field="*{creadoEn}" class="form-control"/></td>
+                <td class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></td>
             </tr>
             <tr>
                 <td><input type="submit" value="Crear Cliente" class="form-control"/></td>

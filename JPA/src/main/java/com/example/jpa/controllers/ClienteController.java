@@ -1,7 +1,7 @@
 package com.example.jpa.controllers;
 
-import com.example.jpa.models.dao.IClienteDao;
 import com.example.jpa.models.entity.Cliente;
+import com.example.jpa.service.IClienteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,11 +20,11 @@ import java.util.Map;
 public class ClienteController {
 
     @Autowired
-    private IClienteDao clienteDao;
+    private IClienteService clienteService;
 
     @GetMapping("/listado")
     public String getClientes(Model model){
-        model.addAttribute("clientes", clienteDao.findAll());
+        model.addAttribute("clientes", clienteService.findAll());
         model.addAttribute("titulo", "JPA");
         return "listado";
     }
@@ -45,7 +45,7 @@ public class ClienteController {
             return "form";
         }
 
-        clienteDao.save(cliente);
+        clienteService.save(cliente);
         sessionStatus.setComplete();
         return "redirect:listado";
     }
@@ -56,7 +56,7 @@ public class ClienteController {
         Cliente cliente = new Cliente();
 
         if(id>0){
-            cliente = clienteDao.findOne(id);
+            cliente = clienteService.findOne(id);
         }else{
             return "redirect:/listado";
         }
@@ -70,7 +70,7 @@ public class ClienteController {
     @GetMapping("/eliminar/{id}")
     public String eliminar(@PathVariable Long id, Model model){
         if(id>0){
-            clienteDao.delete(id);
+            clienteService.delete(id);
         }
         return "redirect:/listado";
     }

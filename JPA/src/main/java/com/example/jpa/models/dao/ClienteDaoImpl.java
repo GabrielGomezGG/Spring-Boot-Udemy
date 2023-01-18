@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-public class ClienteDaoImpl implements IClienteDao{
+public class ClienteDaoImpl implements IClienteDao {
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -23,6 +23,15 @@ public class ClienteDaoImpl implements IClienteDao{
     @Override
     @Transactional
     public void save(Cliente cliente) {
-        entityManager.persist(cliente);
+        if (cliente.getId() != null && cliente.getId() > 0) {
+            entityManager.merge(cliente);
+        } else {
+            entityManager.persist(cliente);
+        }
+    }
+
+    @Override
+    public Cliente findOne(Long id) {
+        return entityManager.find(Cliente.class, id);
     }
 }

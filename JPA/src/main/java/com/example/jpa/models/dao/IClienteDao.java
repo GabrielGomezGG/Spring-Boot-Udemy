@@ -6,9 +6,11 @@ import java.util.List;
 
 public interface IClienteDao {
 
-    public List<Cliente> findAll();
+    List<Cliente> findAll();
 
-    public void save(Cliente cliente);
+    void save(Cliente cliente);
 
-    public Cliente findOne(Long id);
+    Cliente findOne(Long id);
+
+    void delete(Long id);
 }

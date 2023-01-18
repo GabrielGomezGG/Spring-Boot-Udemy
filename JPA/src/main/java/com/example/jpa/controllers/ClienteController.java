@@ -67,4 +67,12 @@ public class ClienteController {
         return "form";
     }
 
+    @GetMapping("/eliminar/{id}")
+    public String eliminar(@PathVariable Long id, Model model){
+        if(id>0){
+            clienteDao.delete(id);
+        }
+        return "redirect:/listado";
+    }
+
 }

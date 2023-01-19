@@ -2,6 +2,7 @@ package com.example.jpa.controllers;
 
 import com.example.jpa.models.entity.Cliente;
 import com.example.jpa.service.IClienteService;
+import com.example.jpa.util.paginator.PageRender;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -26,9 +27,11 @@ public class ClienteController {
 
         var pageRequest = PageRequest.of(page,4);
         var clientes = clienteService.findAll(pageRequest);
+        var pageRender =  new PageRender<>("/listar", clientes);
 
-        model.addAttribute("clientes", clientes);
         model.addAttribute("titulo", "JPA");
+        model.addAttribute("clientes", clientes);
+        model.addAttribute("page",pageRender);
         return "listar";
     }
 

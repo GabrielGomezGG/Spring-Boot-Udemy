@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Map;
 
@@ -22,11 +23,11 @@ public class ClienteController {
     @Autowired
     private IClienteService clienteService;
 
-    @GetMapping("/listado")
+    @GetMapping("/listar")
     public String getClientes(Model model){
         model.addAttribute("clientes", clienteService.findAll());
         model.addAttribute("titulo", "JPA");
-        return "listado";
+        return "listar";
     }
 
     @GetMapping("/form")
@@ -38,27 +39,33 @@ public class ClienteController {
     }
 
     @PostMapping("/form")
-    public String guardar(@Valid Cliente cliente, BindingResult bindingResult, Model model, SessionStatus sessionStatus){
+    public String guardar(@Valid Cliente cliente, BindingResult bindingResult, Model model, RedirectAttributes flash, SessionStatus sessionStatus){
 
         if(bindingResult.hasErrors()){
             model.addAttribute("titulo", "Formulario de cliente");
             return "form";
         }
-
+        String mensajeFlash = (cliente.getId() != null)? "CLiente editado con exito" : "Cliente creado con exito";
         clienteService.save(cliente);
         sessionStatus.setComplete();
-        return "redirect:listado";
+        flash.addFlashAttribute("success", mensajeFlash);
+        return "redirect:listar";
     }
 
     @GetMapping("form/{id}")
-    public String editar(@PathVariable long id, Model model){
+    public String editar(@PathVariable long id, Model model, RedirectAttributes flash){
 
         Cliente cliente = new Cliente();
 
         if(id>0){
             cliente = clienteService.findOne(id);
+            if(cliente == null){
+                flash.addFlashAttribute("error", "El id del cliente no existe");
+                return "redirect:/listar";
+            }
         }else{
-            return "redirect:/listado";
+            flash.addFlashAttribute("error", "El id del cliente no puede ser 0");
+            return "redirect:/listar";
         }
 
         model.addAttribute("cliente", cliente);
@@ -68,11 +75,12 @@ public class ClienteController {
     }
 
     @GetMapping("/eliminar/{id}")
-    public String eliminar(@PathVariable Long id, Model model){
+    public String eliminar(@PathVariable Long id, Model model, RedirectAttributes flash){
         if(id>0){
             clienteService.delete(id);
+            flash.addFlashAttribute("success", "Se elimino con exito");
         }
-        return "redirect:/listado";
+        return "redirect:/listar";
     }
 
 }

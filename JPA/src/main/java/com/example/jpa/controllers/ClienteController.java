@@ -27,9 +27,9 @@ public class ClienteController {
     @Autowired
     private IClienteService clienteService;
 
-    @GetMapping("/ver")
+    @GetMapping("/ver/{id}")
     public String ver(
-            @RequestParam(value = "id") Long id,
+            @PathVariable(value = "id") Long id,
             Model model,
             RedirectAttributes flash
     ){

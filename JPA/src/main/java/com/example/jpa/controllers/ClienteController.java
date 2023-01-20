@@ -2,13 +2,11 @@ package com.example.jpa.controllers;
 
 import com.example.jpa.models.entity.Cliente;
 import com.example.jpa.service.IClienteService;
+import com.example.jpa.service.IUploadFileService;
 import com.example.jpa.util.paginator.PageRender;
 import jakarta.validation.Valid;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -22,11 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Map;
-import java.util.UUID;
 
 @Controller
 @SessionAttributes("cliente")
@@ -35,21 +29,21 @@ public class ClienteController {
     @Autowired
     private IClienteService clienteService;
 
-    private Logger log = LoggerFactory.getLogger(getClass());
+    @Autowired
+    private IUploadFileService uploadFileService;
+
+
 
     @GetMapping("/uploads/{filename:.*}")
     public ResponseEntity<Resource> verFoto(@PathVariable String filename) {
-        var pathFoto = Paths.get("uploads").resolve(filename).toAbsolutePath();
-        log.info("pathFoto", pathFoto);
+
         Resource recurso = null;
         try {
-            recurso = new UrlResource(pathFoto.toUri());
-            if (!recurso.exists() || !recurso.isReadable()) {
-                throw new RuntimeException("Error: no se puede cargar la imagen" + pathFoto);
-            }
+            recurso = uploadFileService.load(filename);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
+
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso + "\"").body(recurso);
     }
@@ -111,28 +105,20 @@ public class ClienteController {
                     && cliente.getId() > 0
                     && cliente.getFoto() != null
                     && cliente.getFoto().length() > 0) {
-                var rootPath = Paths.get("uploads").resolve(cliente.getFoto()).toAbsolutePath();
-                var archivo = rootPath.toFile();
-
-                if(archivo.exists() && archivo.canRead()){
-                    archivo.delete();
-                }
+                uploadFileService.delete(cliente.getFoto());
             }
 
-            String uniqueFileName = UUID.randomUUID().toString() + "_" + foto.getOriginalFilename();
-
-            Path rootPath = Paths.get("uploads").resolve(uniqueFileName);
-            Path rootAbsoltPath = rootPath.toAbsolutePath();
-
-            log.info("rootPath: " + rootPath);
-            log.info("rootAbsolutPath: " + rootAbsoltPath);
+            String uniqueFileName = null;
             try {
-                Files.copy(foto.getInputStream(), rootAbsoltPath);
-                flash.addFlashAttribute("info", "Ha subido correctamente la foto." + uniqueFileName);
-                cliente.setFoto(uniqueFileName);
+                uniqueFileName = uploadFileService.copy(foto);
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+            flash.addFlashAttribute("info", "Ha subido correctamente la foto." + uniqueFileName);
+            cliente.setFoto(uniqueFileName);
+
+
         }
         String mensajeFlash = (cliente.getId() != null) ? "CLiente editado con exito" : "Cliente creado con exito";
         clienteService.save(cliente);
@@ -170,13 +156,8 @@ public class ClienteController {
             clienteService.delete(id);
             flash.addFlashAttribute("success", "Se elimino con exito");
 
-            var rootPath = Paths.get("uploads").resolve(cliente.getFoto()).toAbsolutePath();
-            var archivo = rootPath.toFile();
-
-            if (archivo.exists() && archivo.canRead()) {
-                if (archivo.delete()) {
-                    flash.addFlashAttribute("info", "Foto: " + cliente.getFoto() + " eliminada con exito!");
-                }
+            if(uploadFileService.delete(cliente.getFoto())){
+                flash.addFlashAttribute("info","Foto: "+cliente.getNombre()+" eliminacion con exito");
             }
         }
         return "redirect:/listar";

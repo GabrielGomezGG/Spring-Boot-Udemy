@@ -42,4 +42,12 @@ public class Factura implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private Cliente cliente;
 
+    public Double getTotal(){
+        var total = 0.0;
+        for (ItemFactura item : items){
+            total += item.calcularImporte();
+        }
+        return total;
+    }
+
 }

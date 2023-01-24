@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 
 @Getter
@@ -24,6 +25,14 @@ public class Factura implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "create_at")
     private Date createAt;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "factura_id")
+    private List<ItemFactura> items;
+
+    public void addItemFactura(ItemFactura item){
+        items.add(item);
+    }
 
     @PrePersist
     public void prePersist(){

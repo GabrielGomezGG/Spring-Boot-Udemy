@@ -9,7 +9,9 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -37,9 +39,15 @@ public class Cliente implements Serializable {
 
     private String foto;
 
-//    @PrePersist
-//    public void PrePersist(){
-//        creadoEn = new Date();
-//    }
+    @OneToMany(mappedBy = "cliente",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Factura> facturas;
+
+    public void addFacturas(Factura factura){
+        facturas.add(factura);
+    }
+
+    public Cliente(){
+        facturas = new ArrayList<>();
+    }
 
 }

@@ -1,4 +1,4 @@
-package com.msvc.usuario.exceptions.controller;
+package com.msvc.usuario.exceptions;
 
 import com.msvc.usuario.exceptions.ResourceNotFountException;
 import com.msvc.usuario.response.ApiResponse;

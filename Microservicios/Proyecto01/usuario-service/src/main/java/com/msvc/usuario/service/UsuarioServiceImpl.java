@@ -4,6 +4,8 @@ import com.msvc.usuario.entity.Calificacion;
 import com.msvc.usuario.entity.Hotel;
 import com.msvc.usuario.entity.Usuario;
 import com.msvc.usuario.exceptions.ResourceNotFountException;
+import com.msvc.usuario.external.services.CalificacionService;
+import com.msvc.usuario.external.services.HotelService;
 import com.msvc.usuario.repository.UsuarioRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -24,10 +26,16 @@ import java.util.stream.Collectors;
 public class UsuarioServiceImpl  implements UsuarioService{
 
     @Autowired
+    private HotelService hotelService;
+
+    @Autowired
     private RestTemplate restTemplate;
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private CalificacionService calificacionService;
 
     @Override
     public Usuario saveUsuario(Usuario usuario) {
@@ -49,17 +57,11 @@ public class UsuarioServiceImpl  implements UsuarioService{
                 .orElseThrow( () -> new ResourceNotFountException("Usuario no encontrado con el id: " + usuarioId));
 
 
-        Calificacion[] calificacionesDelUsuario = restTemplate.getForObject("http://CALIFICACION-SERVICE/calificaciones/usuarios/"+usuario.getId(),Calificacion[].class);
+        var calificaciones = calificacionService.getCalificacionesPorUsuarioId(usuario.getId());
 
-        List<Calificacion> calificaciones = Arrays.stream(calificacionesDelUsuario).collect(Collectors.toList());
+        var listaCalificaciones = calificaciones.stream().map(calificacion -> {
 
-
-        List<Calificacion> listaCalificaciones = calificaciones.stream().map(calificacion -> {
-            ResponseEntity<Hotel> forEntity = restTemplate.getForEntity(
-                    "http://HOTEL-SERVICE/hoteles/"+calificacion.getHotelId(),
-                    Hotel.class);
-
-            var hotel = forEntity.getBody();
+            Hotel hotel = hotelService.getHotel(calificacion.getHotelId());
 
             calificacion.setHotel(hotel);
 

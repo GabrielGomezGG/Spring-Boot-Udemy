@@ -46,7 +46,16 @@ public class UsuarioServiceImpl  implements UsuarioService{
 
     @Override
     public List<Usuario> getAllUsuarios() {
-        return usuarioRepository.findAll();
+
+        var usuarios = usuarioRepository.findAll();
+
+        return usuarios
+                .stream()
+                .map(it -> {
+                    var calificaciones = calificacionService.getCalificacionesPorUsuarioId(it.getId());
+                    it.setCalificaciones(calificaciones);
+                    return it;
+                }).toList();
     }
 
     @Override

@@ -5,9 +5,8 @@ spring:
     name: CONFIG-SERVER
   cloud:
     config:
-      enabled: true
       server:
         git:
-          uri: https://github.com/GabrielGomezGG/Spring-Boot-Udemy/tree/master/Microservicios/Proyecto01
+          uri: https://github.com/GabrielGomezGG/Spring-Boot-Udemy
           clone-on-start: false
 

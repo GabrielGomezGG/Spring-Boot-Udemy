@@ -48,6 +48,6 @@ resilience4j:
     retry:
       instances:
         ratingHotelService:
-          max-attemps: 3
+          max-attempts: 3
           wait-duration: 5s
 

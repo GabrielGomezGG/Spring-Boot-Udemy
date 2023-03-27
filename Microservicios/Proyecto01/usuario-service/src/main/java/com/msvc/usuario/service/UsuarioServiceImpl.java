@@ -53,7 +53,17 @@ public class UsuarioServiceImpl  implements UsuarioService{
                 .stream()
                 .map(it -> {
                     var calificaciones = calificacionService.getCalificacionesPorUsuarioId(it.getId());
-                    it.setCalificaciones(calificaciones);
+
+                    var listaCalificaciones = calificaciones.stream().map(calificacion -> {
+
+                        Hotel hotel = hotelService.getHotel(calificacion.getHotelId());
+
+                        calificacion.setHotel(hotel);
+
+                        return calificacion;
+                    }).toList();
+
+                    it.setCalificaciones(listaCalificaciones);
                     return it;
                 }).toList();
     }

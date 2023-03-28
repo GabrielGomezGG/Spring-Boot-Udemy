@@ -23,7 +23,7 @@ public class JwtProvider {
         secret = Base64.getEncoder().encodeToString(secret.getBytes());
     }
 
-    public String createToker(AuthUser authUser){
+    public String createToken(AuthUser authUser){
         Map<String,Object> claims = new HashMap<String,Object>();
         claims = Jwts.claims().setSubject(authUser.getUserName());
         claims.put("id",authUser.getId());

@@ -24,7 +24,7 @@ public class JwtProvider {
     }
 
     public String createToken(AuthUser authUser){
-        Map<String,Object> claims = new HashMap<String,Object>();
+        Map<String,Object> claims;
         claims = Jwts.claims().setSubject(authUser.getUserName());
         claims.put("id",authUser.getId());
         var dateNow = new Date();
